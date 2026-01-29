@@ -1,0 +1,3 @@
+.p-menubar {
+  @apply bg-transparent border-0 border-r-0;
+}

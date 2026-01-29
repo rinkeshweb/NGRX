@@ -1,0 +1,6 @@
+<div class="flex flex-wrap gap-4 justify-center my-6">
+  <button pButton [raised]="true" severity="contrast" (click)="onDecrease()"
+    [disabled]="countNumber() === 0">Decrease</button>
+  <button pButton [raised]="true" severity="primary" (click)="onIncrease()">Increase</button>
+  <button pButton [raised]="true" severity="info" (click)="onReset()">Reset</button>
+</div>
