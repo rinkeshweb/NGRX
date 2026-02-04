@@ -1,4 +1,11 @@
-<p-inputgroup>
-  <input pInputText [(ngModel)]="customInput" />
-  <p-button label="Increase" (click)="onCustomIncrease()" />
-</p-inputgroup>
+@let toggleBtn = (toggleButton$ | async);
+<button pButton severity="contrast" class="w-full" [class]="toggleBtn ? 'rounded-bl-none! rounded-br-none!' : ''"
+  (click)="showInput()"> {{toggleBtn ? '-' : '+'}} </button>
+@if(toggleBtn){
+<div class="card p-5 border-2 border-t-0">
+  <p-inputgroup>
+    <input pInputText [(ngModel)]="customInput" />
+    <p-button label="Increase" (click)="onCustomIncrease()" />
+  </p-inputgroup>
+</div>
+}

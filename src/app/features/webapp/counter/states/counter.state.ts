@@ -1,9 +1,11 @@
 export interface CounterState {
   counter: number,
-  isLoading: boolean
+  isLoading: boolean,
+  toggle: boolean
 }
 
 export const initialState: CounterState = {
   counter: 0,
-  isLoading: false
+  isLoading: false,
+  toggle: false
 }
