@@ -5,7 +5,7 @@ import { of } from 'rxjs';
   providedIn: 'root',
 })
 export class CounterService {
-  private readonly _count = signal(0);
+  private _count = signal(0);
   readonly count = this._count;
 
   increase() {

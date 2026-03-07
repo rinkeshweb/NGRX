@@ -5,17 +5,23 @@
 
 
 /* Header navbar */
-.p-menubar-root-list {
-  @apply !ml-auto;
+:host ::ng-deep .p-menubar {
+  display: flex;
+  align-items: center;
 }
 
-.p-menubar-end {
-  @apply hidden;
+:host ::ng-deep .p-menubar-start {
+  flex: 1;
 }
 
-@media(max-width:960px) {
-  .p-menubar-mobile .p-menubar-button {
-    @apply ml-auto
-  }
+:host ::ng-deep .p-menubar-root-list {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 
+:host ::ng-deep .p-menubar-end {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 }

@@ -11,7 +11,7 @@ import { CounterState } from '../states/counter.state';
   styleUrl: './counter-button.css',
 })
 export class CounterButton {
-  private readonly store = inject<Store<{ counter: CounterState }>>(Store);
+  private store = inject<Store<{ counter: CounterState }>>(Store);
 
   readonly countNumber = this.store.selectSignal(store => store.counter.counter);
 

@@ -5,5 +5,5 @@ export const routes: Routes = [
   {
     path: '', loadComponent: () => import('./features/layout/webapp-layout').then(c => c.WebappLayout),
     children: WEB_ROUTES
-  }
+  },
 ];

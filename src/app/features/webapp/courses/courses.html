@@ -1,8 +1,22 @@
 <section class="my-10 px-5">
-  <div class="max-w-7xl mx-auto text-white">
-    <div class="card bg-fuchsia-600 p-5 rounded-2xl shadow-2xl">
-      <h1 class="text-3xl text-center mb-4 font-semibold ">Courses</h1>
-      <hr class="border-dashed border mb-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center">
+      <h1 class="text-3xl text-center mb-4 font-semibold">Courses</h1>
+      <div>
+        <p-inputgroup>
+          <input pInputText placeholder="Search" [(ngModel)]="searchCourses" />
+          <p-button label="Search" (click)="onSearch()" />
+        </p-inputgroup>
+      </div>
+      <button pButton severity="info" (click)="openForm()">Create New</button>
     </div>
+    <hr class="border-dashed border my-4">
+    <!-- Courses Card -->
+    <app-courses-card />
   </div>
 </section>
+
+<p-drawer [header]="selectedCourse() ? 'Edit Course':'Add Course'" [visible]="showForm()" (onHide)="closeForm()"
+  position="right">
+  <app-courses-form [course]="selectedCourse()" />
+</p-drawer>

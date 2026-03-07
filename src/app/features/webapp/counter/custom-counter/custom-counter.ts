@@ -8,6 +8,7 @@ import { CounterState } from '../states/counter.state';
 import { customIncrement, toggleCustomInput } from '../states/counter.actions';
 import { getToggle } from '../states/counter.selector';
 import { AsyncPipe } from '@angular/common';
+import { appState } from 'src/app/core/store/app.state';
 
 @Component({
   selector: 'app-custom-counter',
@@ -16,7 +17,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './custom-counter.css',
 })
 export class CustomCounter {
-  private readonly store = inject<Store<{ counter: CounterState }>>(Store)
+  private store = inject<Store<appState>>(Store)
   readonly customInput = signal<number>(0);
   readonly toggleButton$ = this.store.select(getToggle);
 

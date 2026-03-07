@@ -1,0 +1,51 @@
+<form [formGroup]="courseForm" class="space-y-5 w-full max-w-xl">
+
+  <!-- TITLE -->
+  <div class="flex flex-col gap-1">
+    <label class="font-semibold">Course Title</label>
+    <input pInputText formControlName="title" class="w-full" />
+    @if(courseForm.controls.title.touched && courseForm.controls.title.invalid){
+    <small class="text-red-500"> Minimum 5 characters required </small>
+    }
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="flex flex-col gap-1">
+    <label class="font-semibold">Description</label>
+    <textarea pInputTextarea rows="3" formControlName="discription" class="w-full"></textarea>
+  </div>
+
+  <!-- IMAGE -->
+  <div class="flex flex-col gap-1">
+    <label class="font-semibold">Image URL</label>
+    <input pInputText formControlName="image" class="w-full" />
+  </div>
+
+  <!-- AUTHOR -->
+  <div class="flex flex-col gap-1">
+    <label class="font-semibold">Author</label>
+    <input pInputText formControlName="author" class="w-full" />
+  </div>
+
+  <!-- PRICE -->
+  <div class="flex flex-col gap-1">
+    <label class="font-semibold">Price</label>
+    <p-inputNumber formControlName="price" mode="currency" currency="USD" locale="en-US" class="w-full">
+    </p-inputNumber>
+  </div>
+
+  <!-- POPULAR -->
+  <div class="flex items-center gap-2">
+    <p-checkbox formControlName="isPopular" binary="true"></p-checkbox>
+    <label>Popular Course</label>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="flex justify-end gap-3 pt-4 border-t border-gray-400">
+    <button pButton type="button" label="Reset" severity="secondary"
+      (click)="courseForm.reset({ price:0, isPopular:false })">
+    </button>
+    <button pButton type="button" label="Save Course" (click)="submit()" [disabled]="courseForm.invalid"></button>
+  </div>
+
+</form>

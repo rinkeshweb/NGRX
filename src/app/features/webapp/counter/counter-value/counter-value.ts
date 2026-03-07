@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { CounterState } from '../states/counter.state';
 import { getCounter } from '../states/counter.selector';
 import { AsyncPipe } from '@angular/common';
+import { appState } from 'src/app/core/store/app.state';
 
 @Component({
   selector: 'app-counter-value',
@@ -11,7 +12,7 @@ import { AsyncPipe } from '@angular/common';
   styleUrl: './counter-value.css',
 })
 export class CounterValue {
-  private readonly store = inject<Store<{ counter: CounterState }>>(Store);
+  private store = inject<Store<appState>>(Store);
 
   readonly counter$ = this.store.select(getCounter);
 

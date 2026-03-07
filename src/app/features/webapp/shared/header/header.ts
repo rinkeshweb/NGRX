@@ -1,16 +1,21 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
 import { MenuItem, MessageService } from 'primeng/api';
+import { RouterLink } from "@angular/router";
+import { ButtonModule } from 'primeng/button';
+import { AuthService } from 'src/app/core/services/auth-service';
 
 @Component({
   selector: 'web-header',
-  imports: [MenubarModule],
+  imports: [MenubarModule, RouterLink, ButtonModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
+  private authService = inject(AuthService);
   private messageService = inject(MessageService);
-  items = signal<MenuItem[] | undefined>(undefined);
+  items = signal<MenuItem[]>([]);
+  userData = this.authService.displayUser;
 
   constructor() {
     effect(() => {
