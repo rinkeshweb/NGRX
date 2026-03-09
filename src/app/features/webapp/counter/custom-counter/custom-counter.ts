@@ -4,11 +4,9 @@ import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
-import { CounterState } from '../states/counter.state';
 import { customIncrement, toggleCustomInput } from '../states/counter.actions';
 import { getToggle } from '../states/counter.selector';
 import { AsyncPipe } from '@angular/common';
-import { appState } from 'src/app/core/store/app.state';
 
 @Component({
   selector: 'app-custom-counter',
@@ -17,7 +15,7 @@ import { appState } from 'src/app/core/store/app.state';
   styleUrl: './custom-counter.css',
 })
 export class CustomCounter {
-  private store = inject<Store<appState>>(Store)
+  private store = inject<Store>(Store)
   readonly customInput = signal<number>(0);
   readonly toggleButton$ = this.store.select(getToggle);
 

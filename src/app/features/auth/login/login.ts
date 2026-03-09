@@ -4,6 +4,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from 'src/app/core/services/auth-service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/core/store/app.state';
+import { loginStart } from '../state/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +15,7 @@ import { AuthService } from 'src/app/core/services/auth-service';
   styleUrl: './login.css',
 })
 export class Login {
-  private authService = inject(AuthService);
+  private store = inject<Store<AppState>>(Store);
   private fb = inject(FormBuilder);
 
 
@@ -26,23 +29,9 @@ export class Login {
       this.loginForm.markAllAsTouched();
       return;
     }
-
     console.log(this.loginForm.value);
     const { email, password } = this.loginForm.getRawValue();
-    this.authService.login(email, password).subscribe({
-      next: (res) => {
-        this.loginForm.reset();
-        console.log(res);
-      },
-      error: (err) => {
-        const message =
-          err?.error?.message ||
-          err?.error ||
-          err?.message ||
-          'Login failed';
-        console.log('Error:', message);
-      }
-    });
+    this.store.dispatch(loginStart({ email, password }))
   }
 
   get email() {

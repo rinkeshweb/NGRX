@@ -7,7 +7,7 @@
         </a>
       </ng-template>
       <ng-template #end>
-        @if(!userData()){
+        @if(!loggedUser$()){
         <div class="flex items-center gap-4">
           <a routerLink="/auth/login" routerLinkActive="text-primary font-medium" class="hover:text-primary transition">
             Login </a>
@@ -16,9 +16,8 @@
         </div>
         } @else{
         <div class="flex items-center gap-4">
-          <p>Hello, {{userData()?.email}}</p>
-          <a routerLink="/auth/signup" routerLinkActive="text-white font-medium"
-            class="hover:text-primary text-white p-2 rounded transition bg-red-500">Logout</a>
+          <p>Hello, {{loggedUser$()?.email}}</p>
+          <p-button label="Logout" severity="danger" class="hover:text-primary text-white p-2 rounded transition" (click)="logout()" />
         </div>
         }
       </ng-template>

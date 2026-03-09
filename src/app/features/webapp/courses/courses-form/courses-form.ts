@@ -8,7 +8,6 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { Courses } from 'src/app/core/models/courses.model';
 import { Store } from '@ngrx/store';
-import { appState } from 'src/app/core/store/app.state';
 import { createCourses } from '../state/courses.actions';
 
 @Component({
@@ -19,7 +18,7 @@ import { createCourses } from '../state/courses.actions';
 })
 export class CoursesForm {
   readonly course = input<Courses | null>(null);
-  private store = inject<Store<appState>>(Store)
+  private store = inject<Store>(Store)
   private fb = inject(FormBuilder);
   private cdr = inject(ChangeDetectorRef);
 

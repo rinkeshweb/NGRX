@@ -1,9 +1,11 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { RouterLink } from "@angular/router";
 import { ButtonModule } from 'primeng/button';
-import { AuthService } from 'src/app/core/services/auth-service';
+import { Store } from '@ngrx/store';
+import { selectUser } from 'src/app/features/auth/state/auth.selector';
+import { AppState } from 'src/app/core/store/app.state';
 
 @Component({
   selector: 'web-header',
@@ -11,11 +13,16 @@ import { AuthService } from 'src/app/core/services/auth-service';
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
+
 export class Header {
-  private authService = inject(AuthService);
-  private messageService = inject(MessageService);
+  private store = inject<Store<AppState>>(Store);
   items = signal<MenuItem[]>([]);
-  userData = this.authService.displayUser;
+  loggedUser$ = this.store.selectSignal(selectUser);
+
+  // Logout function to be implemented later
+  logout() {
+    console.log('logout');
+  }
 
   constructor() {
     effect(() => {
@@ -24,23 +31,14 @@ export class Header {
           label: 'Home',
           routerLink: '/',
           icon: 'pi pi-home',
-          // command: () => {
-          //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Homepage Opened', life: 3000 });
-          // }
         },
         {
           label: 'Counter',
           routerLink: '/counter',
-          // command: () => {
-          //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Counter Opened', life: 3000 });
-          // }
         },
         {
           label: 'Courses',
           routerLink: '/courses',
-          // command: () => {
-          //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Courses Opened', life: 3000 });
-          // }
         },
       ]);
     })

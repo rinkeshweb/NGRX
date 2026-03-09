@@ -3,7 +3,8 @@ import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
   { path: 'login', loadComponent: () => import('./login/login').then(c => c.Login) },
-  { path: 'signup', loadComponent: () => import('./signup/signup').then(c => c.Signup) }
+  { path: 'signup', loadComponent: () => import('./signup/signup').then(c => c.Signup) },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 ]
 
 
@@ -12,8 +13,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes)
   ],
-  exports: [
-  ]
+  exports: []
 })
 
 export class AuthModule {

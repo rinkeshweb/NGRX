@@ -1,14 +1,15 @@
-import { counterReducer } from "src/app/features/webapp/counter/states/counter.reducer";
-import { CounterState } from "src/app/features/webapp/counter/states/counter.state";
-import { coursesReducer } from "src/app/features/webapp/courses/state/courses.reducer";
-import { CoursesState } from "src/app/features/webapp/courses/state/courses.state";
+import { AuthState } from 'src/app/features/auth/state/auth.state';
+import { AUTH_STATE, SHARED_STATE } from "src/app/constants";
+import { authReducer } from "src/app/features/auth/state/auth.reducer";
+import { sharedState } from '../shared/state/shared.state';
+import { sharedReducer } from '../shared/state/shared.reducer';
 
-export interface appState {
-  counter: CounterState,
-  courses: CoursesState
+export interface AppState {
+  [AUTH_STATE]: AuthState;
+  [SHARED_STATE]: sharedState,
 }
 
 export const appReducer = {
-  counter: counterReducer,
-  courses: coursesReducer
-}
+  [AUTH_STATE]: authReducer,
+  [SHARED_STATE]: sharedReducer
+};

@@ -1,3 +1,4 @@
+import { provideEffects } from '@ngrx/effects';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
@@ -29,7 +30,8 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       }
     }),
-    provideStore(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideStore(appReducer),
+    provideEffects(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ]
 };

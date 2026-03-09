@@ -4,7 +4,6 @@ import { ButtonModule } from 'primeng/button';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe } from '@angular/common';
 import { selectCourses } from '../state/courses.selector';
-import { appState } from 'src/app/core/store/app.state';
 import { deleteCourse, openEditForm } from '../state/courses.actions';
 import { Courses } from 'src/app/core/models/courses.model';
 
@@ -15,7 +14,7 @@ import { Courses } from 'src/app/core/models/courses.model';
   styleUrl: './courses-card.css',
 })
 export class CoursesCard {
-  private store = inject<Store<appState>>(Store);
+  private store = inject<Store>(Store);
   readonly coursesItems = toSignal(this.store.select(selectCourses), { initialValue: [] })
 
   editForm(course: Courses) {
