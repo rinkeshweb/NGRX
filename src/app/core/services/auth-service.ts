@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   private loginPath = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
-  private registerPath = `https://identitytoolkit.googleapis.com/v1/accounts:signUp??key=${FIREBASE_API_KEY}`;
+  private registerPath = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`;
 
   private http = inject(HttpClient);
   private message = inject(MessageService);
