@@ -9,21 +9,28 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private path = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
+  private loginPath = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${FIREBASE_API_KEY}`;
+  private registerPath = `https://identitytoolkit.googleapis.com/v1/accounts:signUp??key=${FIREBASE_API_KEY}`;
 
   private http = inject(HttpClient);
   private message = inject(MessageService);
 
 
   login(email: string, password: string) {
-    return this.http.post<User>(`${this.path}`, { email, password, returnSecureToken: true })
+    return this.http.post<User>(`${this.loginPath}`, { email, password, returnSecureToken: true })
+  }
+
+  signup(email: string, password: string) {
+    return this.http.post<User>(`${this.registerPath}`, { email, password, returnSecureToken: true })
   }
 
   getErrorMessage(error: HttpErrorResponse) {
     const errors: any = {
       INVALID_LOGIN_CREDENTIALS: 'Invalid email or password',
-      EMAIL_EXISTS: 'Email already exists',
-      USER_DISABLED: 'User account disabled'
+      EMAIL_EXISTS: ' The email address is already in use by another account.',
+      USER_DISABLED: 'User account disabled',
+      OPERATION_NOT_ALLOWED: 'Operation not allowed',
+      TOO_MANY_ATTEMPTS_TRY_LATER: 'Too many attempts, try again later',
     };
     return this.message.add({ severity: 'error', summary: 'Login Failed', detail: errors[error.error.error.message] || 'Something went wrong' });
   }

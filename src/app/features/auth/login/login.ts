@@ -7,10 +7,11 @@ import { AuthService } from 'src/app/core/services/auth-service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/store/app.state';
 import { loginStart } from '../state/auth.actions';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [InputTextModule, PasswordModule, ButtonModule, ReactiveFormsModule],
+  imports: [InputTextModule, PasswordModule, ButtonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

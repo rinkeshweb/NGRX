@@ -1,1 +1,58 @@
-<p>signup works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+
+    <h2 class="text-2xl font-semibold text-center mb-6">
+      Create your account
+    </h2>
+
+    <form [formGroup]="signupForm" (ngSubmit)="submit()" class="space-y-5">
+      <!-- Email -->
+      <div class="flex flex-col gap-2">
+        <label class="font-medium">Email</label>
+        <input pInputText type="email" formControlName="email" placeholder="test@gmail.com" class="w-full" />
+
+        @if (email?.touched && email?.invalid) {
+        <small class="text-red-500">
+          @if (email?.errors?.['required']) {
+          Email is required
+          }
+          @if (email?.errors?.['email']) {
+          Please enter a valid email
+          }
+        </small>
+        }
+      </div>
+
+      <!-- Password -->
+      <div class="flex flex-col gap-2">
+        <label class="font-medium">Password</label>
+
+        <p-password formControlName="password" [feedback]="false" [toggleMask]="true" styleClass="w-full"
+          inputStyleClass="w-full" placeholder="Enter password">
+        </p-password>
+
+        @if (password?.touched && password?.invalid) {
+        <small class="text-red-500">
+          @if (password?.errors?.['required']) {
+          Password is required
+          }
+          @if (password?.errors?.['minlength']) {
+          Minimum 6 characters required
+          }
+        </small>
+        }
+      </div>
+
+      <!-- Submit -->
+      <button pButton type="submit" label="Create Account" class="w-full"></button>
+
+    </form>
+
+    <!-- Go to Login -->
+    <div class="text-center mt-6 text-sm">
+      Already have an account?
+      <a routerLink="/auth/login" class="text-blue-600 hover:underline font-medium"> Login </a>
+    </div>
+
+  </div>
+</div>
