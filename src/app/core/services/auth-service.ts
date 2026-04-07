@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { FIREBASE_API_KEY } from 'src/app/constants';
 import { MessageService } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { AuthResponse } from '../models/auth-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +17,12 @@ export class AuthService {
   private message = inject(MessageService);
 
 
-  login(email: string, password: string) {
-    return this.http.post<User>(`${this.loginPath}`, { email, password, returnSecureToken: true })
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.loginPath}`, { email, password, returnSecureToken: true })
   }
 
-  signup(email: string, password: string) {
-    return this.http.post<User>(`${this.registerPath}`, { email, password, returnSecureToken: true })
+  signup(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.registerPath}`, { email, password, returnSecureToken: true })
   }
 
   getErrorMessage(error: HttpErrorResponse) {
@@ -33,6 +34,25 @@ export class AuthService {
       TOO_MANY_ATTEMPTS_TRY_LATER: 'Too many attempts, try again later',
     };
     return this.message.add({ severity: 'error', summary: 'Login Failed', detail: errors[error.error.error.message] || 'Something went wrong' });
+  }
+
+  formateUserData(response: AuthResponse) {
+    const formateTimeStamp = Date.now() + (+response.expiresIn * 1000)
+    const formattedUser: User = {
+      accessToken: response.idToken,
+      email: response.email,
+      expiresAt: formateTimeStamp,
+      userId: response.localId
+    }
+    return formattedUser
+  }
+
+  saveUserInLocalStorage(userData: User) {
+    try {
+      localStorage.setItem('authUserData', JSON.stringify(userData))
+    } catch (error) {
+      console.log('Error Saving user data in local storage', error);
+    }
   }
 
 }

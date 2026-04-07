@@ -9,7 +9,6 @@ import { MessageService } from 'primeng/api';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/core/store/app.state';
 import { LoadErrorMessage, loadingStart } from 'src/app/core/shared/state/shared.actions';
-import { errorMessage } from 'src/app/core/shared/state/shared.selector';
 
 @Injectable({ providedIn: 'root' })
 
@@ -31,7 +30,9 @@ export class AuthEffects {
             this.store.dispatch(loadingStart({ isLoading: false }))
             this.message.add({ severity: 'success', summary: 'Login Successful', detail: `You have successfully logged in ${res.email}`, life: 3000 })
             this.router.navigate(['/'])
-            return loginSuccess({ user: res })
+            const loggedUser = this.authService.formateUserData(res);
+            this.authService.saveUserInLocalStorage(loggedUser)
+            return loginSuccess({ user: loggedUser })
           }),
           catchError((err) => {
             this.store.dispatch(loadingStart({ isLoading: false }))
@@ -53,8 +54,10 @@ export class AuthEffects {
           map((res) => {
             this.store.dispatch(loadingStart({ isLoading: false }));
             this.message.add({ severity: 'success', summary: 'Signup Successful', detail: `You have successfully signup`, life: 3000 });
-            this.router.navigate(['/']);
-            return signupSuccess({ user: res });
+            this.router.navigate(['/auth/login']);
+            const singedUser = this.authService.formateUserData(res);
+            this.authService.saveUserInLocalStorage(singedUser)
+            return signupSuccess({ user: singedUser });
           }),
           catchError((err) => {
             this.store.dispatch(loadingStart({ isLoading: false }))
